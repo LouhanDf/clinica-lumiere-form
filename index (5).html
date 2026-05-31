@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Agende seu horário na Clínica Lumière — tratamentos estéticos premium em Londrina, PR.">
+  <title>Agendamento | Clínica Lumière</title>
+  <link href="https:
+
+  <style>
+    
+    :root {
+      --dourado:        #C9A96E;
+      --dourado-hover:  #b8904f;
+      --marrom-escuro:  #2C1A0E;
+      --marrom-medio:   #4A2E18;
+      --marrom-claro:   #6B4C3B;
+      --creme:          #F5EFE6;
+      --creme-escuro:   #E8DDD0;
+      --texto-claro:    #F5EFE6;
+      --texto-muted:    rgba(245,239,230,0.65);
+      --borda:          rgba(201,169,110,0.25);
+      --borda-foco:     rgba(201,169,110,0.7);
+      --erro:           #E07070;
+      --sucesso:        #7EC8A0;
+      --raio:           10px;
+      --transicao:      all 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--marrom-escuro);
+      color: var(--texto-claro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    
+    header {
+      background-color: var(--marrom-escuro);
+      border-bottom: 1px solid var(--borda);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--texto-claro);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span { color: var(--dourado); }
+
+    .voltar-link {
+      font-size: 0.82rem;
+      color: var(--texto-muted);
+      text-decoration: none;
+      border: 1px solid var(--borda);
+      padding: 7px 16px;
+      border-radius: 50px;
+      transition: var(--transicao);
+      font-weight: 300;
+    }
+
+    .voltar-link:hover {
+      border-color: var(--dourado);
+      color: var(--dourado);
+    }
+
+    
+    .hero-form {
+      background: linear-gradient(160deg, var(--marrom-medio) 0%, var(--marrom-escuro) 100%);
+      padding: 64px 20px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--borda);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-form::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,169,110,0.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-form h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 600;
+      color: var(--texto-claro);
+      margin-bottom: 14px;
+      position: relative;
+      line-height: 1.2;
+    }
+
+    .hero-form h1 em {
+      font-style: italic;
+      color: var(--dourado);
+    }
+
+    .hero-form p {
+      color: var(--texto-muted);
+      font-size: 1rem;
+      font-weight: 300;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    
+    .divisor {
+      width: 48px;
+      height: 2px;
+      background: var(--dourado);
+      margin: 20px auto 0;
+      border-radius: 2px;
+      opacity: 0.6;
+      position: relative;
+    }
+
+    
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      padding: 50px 20px 70px;
+    }
+
+    .card-formulario {
+      background: var(--marrom-medio);
+      border: 1px solid var(--borda);
+      border-radius: 16px;
+      padding: 48px;
+      width: 100%;
+      max-width: 620px;
+    }
+
+    
+    .campo-grupo { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--dourado);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+
+    label .obrigatorio { color: var(--erro); margin-left: 2px; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      font-weight: 300;
+      color: var(--texto-claro);
+      background-color: rgba(44, 26, 14, 0.6);
+      transition: var(--transicao);
+      outline: none;
+      appearance: none;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--texto-muted);
+    }
+
+    
+    select option {
+      background-color: var(--marrom-medio);
+      color: var(--texto-claro);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--dourado);
+      background-color: rgba(44, 26, 14, 0.85);
+      box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.12);
+    }
+
+    input.erro, select.erro, textarea.erro {
+      border-color: var(--erro);
+    }
+
+    input.sucesso, select.sucesso, textarea.sucesso {
+      border-color: var(--sucesso);
+    }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    .msg-erro {
+      display: none;
+      color: var(--erro);
+      font-size: 0.78rem;
+      margin-top: 6px;
+    }
+
+    .msg-erro.visivel { display: block; }
+
+    .campo-duplo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    
+    .secao-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--texto-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 28px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .secao-label::before, .secao-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--borda);
+    }
+
+    
+    .btn-enviar {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--dourado);
+      color: var(--marrom-escuro);
+      border: none;
+      border-radius: var(--raio);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transicao);
+      margin-top: 10px;
+    }
+
+    .btn-enviar:hover {
+      background-color: var(--dourado-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 169, 110, 0.25);
+    }
+
+    .btn-enviar:active { transform: translateY(0); }
+
+    .btn-enviar:focus {
+      outline: 2px solid var(--dourado);
+      outline-offset: 3px;
+    }
+
+    
+    #mensagem-sucesso {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+    }
+
+    .icone-sucesso {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    #mensagem-sucesso h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: var(--texto-claro);
+      margin-bottom: 12px;
+    }
+
+    #mensagem-sucesso p {
+      color: var(--texto-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    #mensagem-sucesso .destaque {
+      color: var(--dourado);
+      font-weight: 400;
+    }
+
+    
+    footer {
+      background-color: rgba(0,0,0,0.3);
+      border-top: 1px solid var(--borda);
+      text-align: center;
+      padding: 22px;
+      font-size: 0.82rem;
+      color: var(--texto-muted);
+      font-weight: 300;
+    }
+
+    footer strong { color: var(--dourado); font-weight: 400; }
+
+    
+    @media (max-width: 600px) {
+      header { padding: 14px 20px; }
+      .logo { font-size: 1.2rem; }
+      .card-formulario { padding: 28px 18px; }
+      .campo-duplo { grid-template-columns: 1fr; }
+      .hero-form { padding: 48px 20px 40px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="https:
+      <svg width="32" height="32" viewBox="0 0 33 33" fill="none" xmlns="http:
+        <rect width="33" height="33" rx="7" fill="#1C1008"/>
+        <path d="M16.5 6.5 L23 14 L16.5 18 L10 14 Z" fill="#C9A96E"/>
+        <path d="M16.5 18 L23 14 L16.5 26.5 L10 14 Z" fill="#C9A96E" opacity="0.45"/>
+      </svg>
+      Clínica Lumi<span>è</span>re
+    </a>
+    <a href="https:
+      ← Voltar ao site
+    </a>
+  </header>
+
+  <section class="hero-form" aria-label="Agendamento">
+    <h1>Agende sua <em>visita</em></h1>
+    <p>Preencha o formulário abaixo e nossa equipe entrará em contato para confirmar seu horário com exclusividade.</p>
+    <div class="divisor"></div>
+  </section>
+
+  <main>
+    <div class="card-formulario">
+
+      <form id="form-agendamento" action="https:
+
+        
+        <div class="secao-label">Seus dados</div>
+
+        <div class="campo-grupo">
+          <label for="nome">Nome Completo <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo"
+            required aria-required="true" autocomplete="name">
+          <span class="msg-erro" id="erro-nome" role="alert">Por favor, informe seu nome completo.</span>
+        </div>
+
+        <div class="campo-duplo">
+          <div class="campo-grupo">
+            <label for="email">E-mail <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com"
+              required aria-required="true" autocomplete="email">
+            <span class="msg-erro" id="erro-email" role="alert">Informe um e-mail válido.</span>
+          </div>
+          <div class="campo-grupo">
+            <label for="whatsapp">WhatsApp <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(43) 99999-9999"
+              required aria-required="true" autocomplete="tel">
+            <span class="msg-erro" id="erro-whatsapp" role="alert">Informe seu WhatsApp.</span>
+          </div>
+        </div>
+
+        
+        <div class="secao-label">Seu agendamento</div>
+
+        <div class="campo-grupo">
+          <label for="servico">Serviço Desejado <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <select id="servico" name="servico" required aria-required="true">
+            <option value="">Selecione um serviço...</option>
+            <option value="limpeza-pele">Limpeza de Pele Profunda</option>
+            <option value="hidratacao">Hidratação Facial</option>
+            <option value="sobrancelhas">Design de Sobrancelhas</option>
+            <option value="depilacao">Depilação Completa</option>
+            <option value="massagem">Massagem Relaxante</option>
+            <option value="drenagem">Drenagem Linfática</option>
+          </select>
+          <span class="msg-erro" id="erro-servico" role="alert">Selecione o serviço desejado.</span>
+        </div>
+
+        <div class="campo-duplo">
+          <div class="campo-grupo">
+            <label for="data">Data Preferida <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="date" id="data" name="data" required aria-required="true">
+            <span class="msg-erro" id="erro-data" role="alert">Selecione uma data.</span>
+          </div>
+          <div class="campo-grupo">
+            <label for="horario">Horário Preferido</label>
+            <select id="horario" name="horario">
+              <option value="">Qualquer horário</option>
+              <option value="09:00">09:00</option>
+              <option value="10:00">10:00</option>
+              <option value="11:00">11:00</option>
+              <option value="13:00">13:00</option>
+              <option value="14:00">14:00</option>
+              <option value="15:00">15:00</option>
+              <option value="16:00">16:00</option>
+              <option value="17:00">17:00</option>
+              <option value="18:00">18:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="campo-grupo">
+          <label for="observacoes">Observações</label>
+          <textarea id="observacoes" name="observacoes"
+            placeholder="Alguma informação adicional? Alergias, restrições..."
+            aria-label="Campo opcional para observações"></textarea>
+        </div>
+
+        <button type="submit" class="btn-enviar" aria-label="Enviar solicitação de agendamento">
+          Solicitar Agendamento
+        </button>
+
+      </form>
+
+      <div id="mensagem-sucesso" role="status" aria-live="polite">
+        <div class="icone-sucesso">✦</div>
+        <h2>Solicitação enviada!</h2>
+        <p>
+          Obrigada pelo contato, <span class="destaque" id="nome-confirmacao"></span>.<br>
+          Nossa equipe entrará em contato pelo WhatsApp ou e-mail<br>
+          para confirmar seu horário em até 24h.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      <strong>Clínica Lumière</strong> — Rua das Flores, 142, Londrina, PR &nbsp;·&nbsp;
+      (43) 99999-0000 &nbsp;·&nbsp; contato@lumiere.com.br
+    </p>
+    <p style="margin-top: 6px; font-size: 0.75rem;">© 2025 Clínica Lumière. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      const form = document.getElementById('form-agendamento');
+      const mensagemSucesso = document.getElementById('mensagem-sucesso');
+      const nomeConfirmacao = document.getElementById('nome-confirmacao');
+
+      function validarCampo(campo, idErro) {
+        const msgErro = document.getElementById(idErro);
+        let valido = true;
+
+        if (campo.value.trim() === '') {
+          aplicarEstado(campo, msgErro, false);
+          valido = false;
+        } else if (campo.type === 'email') {
+          const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!regex.test(campo.value)) {
+            aplicarEstado(campo, msgErro, false);
+            valido = false;
+          } else {
+            aplicarEstado(campo, msgErro, true);
+          }
+        } else {
+          aplicarEstado(campo, msgErro, true);
+        }
+
+        return valido;
+      }
+
+      function aplicarEstado(campo, msgErro, valido) {
+        if (valido) {
+          campo.classList.remove('erro');
+          campo.classList.add('sucesso');
+          if (msgErro) msgErro.classList.remove('visivel');
+        } else {
+          campo.classList.add('erro');
+          campo.classList.remove('sucesso');
+          if (msgErro) msgErro.classList.add('visivel');
+        }
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nomeValido    = validarCampo(document.getElementById('nome'),     'erro-nome');
+        const emailValido   = validarCampo(document.getElementById('email'),    'erro-email');
+        const whatsValido   = validarCampo(document.getElementById('whatsapp'), 'erro-whatsapp');
+        const servicoValido = validarCampo(document.getElementById('servico'),  'erro-servico');
+        const dataValido    = validarCampo(document.getElementById('data'),     'erro-data');
+
+        if (nomeValido && emailValido && whatsValido && servicoValido && dataValido) {
+
+          const primeiroNome = document.getElementById('nome').value.trim().split(' ')[0];
+          nomeConfirmacao.textContent = primeiroNome;
+
+          const formData = new FormData(form);
+          fetch('https:
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          })
+          .then(function() {
+            form.style.display = 'none';
+            mensagemSucesso.style.display = 'block';
+            mensagemSucesso.scrollIntoView({ behavior: 'smooth' });
+          })
+          .catch(function() {
+            form.style.display = 'none';
+            mensagemSucesso.style.display = 'block';
+            mensagemSucesso.scrollIntoView({ behavior: 'smooth' });
+          });
+
+        } else {
+
+          const primeiroErro = form.querySelector('.erro');
+          if (primeiroErro) primeiroErro.focus();
+        }
+      });
+
+      form.querySelectorAll('[required]').forEach(function (campo) {
+        campo.addEventListener('input', function () {
+          if (campo.value.trim() !== '') {
+            campo.classList.remove('erro');
+            campo.classList.add('sucesso');
+            const msgErro = document.getElementById('erro-' + campo.id);
+            if (msgErro) msgErro.classList.remove('visivel');
+          }
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
